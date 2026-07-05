@@ -296,24 +296,24 @@ void draw_image(xcb_pixmap_t bg_pixmap, uint32_t *resolution) {
         char buf[4];
 
         cairo_set_source_rgb(ctx, 0, 0, 0);
-        cairo_select_font_face(ctx, "sans-serif", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_NORMAL);
+        cairo_select_font_face(ctx, "monospace", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_NORMAL);
         cairo_set_font_size(ctx, 28.0);
         switch (auth_state) {
             case STATE_AUTH_VERIFY:
-                text = "Verifying…";
+                text = "Verifying";
                 break;
             case STATE_AUTH_LOCK:
-                text = "Locking…";
+                text = "Locking";
                 break;
             case STATE_AUTH_WRONG:
-                text = "Wrong!";
+                text = "Invalid";
                 break;
             case STATE_I3LOCK_LOCK_FAILED:
-                text = "Lock failed!";
+                text = "Lock failed";
                 break;
             default:
                 if (unlock_state == STATE_NOTHING_TO_DELETE) {
-                    text = "No input";
+                    text = "Emptied";
                 }
                 if (show_failed_attempts && failed_attempts > 0) {
                     if (failed_attempts > 999) {
