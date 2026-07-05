@@ -235,43 +235,46 @@ void draw_image(xcb_pixmap_t bg_pixmap, uint32_t *resolution) {
 
         /* Use the appropriate color for the different PAM states
          * (currently verifying, wrong password, or default) */
+        // bg
+        float bg_alpha = 0.6f;
         switch (auth_state) {
             case STATE_AUTH_VERIFY:
             case STATE_AUTH_LOCK:
-                cairo_set_source_rgba(ctx, 0, 114.0 / 255, 255.0 / 255, 0.75);
+                cairo_set_source_rgba(ctx, 0, 0, 255.0 / 255, bg_alpha);
                 break;
             case STATE_AUTH_WRONG:
             case STATE_I3LOCK_LOCK_FAILED:
-                cairo_set_source_rgba(ctx, 250.0 / 255, 0, 0, 0.75);
+                cairo_set_source_rgba(ctx, 255.0 / 255, 0, 0, bg_alpha);
                 break;
             default:
                 if (unlock_state == STATE_NOTHING_TO_DELETE) {
-                    cairo_set_source_rgba(ctx, 250.0 / 255, 0, 0, 0.75);
+                    cairo_set_source_rgba(ctx, 255.0 / 255, 0, 0, bg_alpha);
                     break;
                 }
-                cairo_set_source_rgba(ctx, 0, 0, 0, 0.75);
+                cairo_set_source_rgba(ctx, 0, 0, 0, bg_alpha);
                 break;
         }
         cairo_fill_preserve(ctx);
 
         bool use_dark_text = true;
 
+        // ring colors
         switch (auth_state) {
             case STATE_AUTH_VERIFY:
             case STATE_AUTH_LOCK:
-                cairo_set_source_rgb(ctx, 51.0 / 255, 0, 250.0 / 255);
+                cairo_set_source_rgb(ctx, 0, 0, 255.0 / 255);
                 break;
             case STATE_AUTH_WRONG:
             case STATE_I3LOCK_LOCK_FAILED:
-                cairo_set_source_rgb(ctx, 125.0 / 255, 51.0 / 255, 0);
+                cairo_set_source_rgb(ctx, 255.0 / 255, 0, 0);
                 break;
             case STATE_AUTH_IDLE:
                 if (unlock_state == STATE_NOTHING_TO_DELETE) {
-                    cairo_set_source_rgb(ctx, 125.0 / 255, 51.0 / 255, 0);
+                    cairo_set_source_rgb(ctx, 255.0 / 255, 0, 0);
                     break;
                 }
 
-                cairo_set_source_rgb(ctx, 51.0 / 255, 125.0 / 255, 0);
+                cairo_set_source_rgb(ctx, 0, 0, 0);
                 use_dark_text = false;
                 break;
         }
